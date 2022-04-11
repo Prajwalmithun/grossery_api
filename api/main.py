@@ -1,8 +1,9 @@
 from typing import Optional
 from unicodedata import name
 from fastapi import FastAPI
-
+import os
 from pydantic import BaseModel
+import uvicorn
 
 # Client should send in JSON
 class Item(BaseModel):
@@ -92,3 +93,7 @@ def delete_item(u_id: int):
 
 # Just for testing purpose
 print(items_added_by_user)
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT","8000"))
+    uvicorn.run(app, host='0.0.0.0',port=port,debug=True)
